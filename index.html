@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Access Portal</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00FF00;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+      padding-top: 20%;
+      font-size: 2em;
+      transition: all 1s ease-in-out;
+    }
+    .hidden {
+      display: none;
+    }
+    .message {
+      font-size: 1.5em;
+    }
+    .heart {
+      color: pink;
+      font-size: 2em;
+      margin-top: 20px;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="screen">ACCESS DENIED</div>
+
+  <script>
+    const screen = document.getElementById('screen');
+
+    setTimeout(() => {
+      screen.textContent = 'OVERRIDE CODE ACCEPTED...';
+    }, 2000);
+
+    setTimeout(() => {
+      screen.innerHTML = `
+        <div>💗 INITIATING BIRTHDAY PROTOCOL 💗</div>
+        <div class="message">Happy Birthday, <strong>SAMIKSHA</strong>!<br>You’ve hacked into my heart 💘</div>
+        <div class="heart">❤️❤️❤️</div>
+      `;
+      document.body.style.backgroundColor = '#111';
+      document.body.style.color = '#fff';
+    }, 4000);
+  </script>
+</body>
+</html>
