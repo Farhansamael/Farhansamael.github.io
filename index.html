@@ -12,46 +12,100 @@
       text-align: center;
       padding-top: 20%;
       font-size: 2em;
-      transition: all 1s ease-in-out;
+      overflow: hidden;
     }
-    .hidden {
-      display: none;
+
+    #screen {
+      white-space: pre-wrap;
+      display: inline-block;
     }
+
+    .glitch {
+      color: #fff;
+      position: relative;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      20% { text-shadow: -2px -2px green, 2px 2px magenta; }
+      40% { text-shadow: 2px 2px cyan, -2px -2px red; }
+      60% { text-shadow: 0 2px yellow, 0 -2px lime; }
+      80% { text-shadow: 2px -2px magenta, -2px 2px cyan; }
+      100% { text-shadow: 2px 0 red, -2px 0 blue; }
+    }
+
     .message {
       font-size: 1.5em;
+      margin-top: 20px;
     }
+
     .heart {
       color: pink;
       font-size: 2em;
       margin-top: 20px;
       animation: pulse 1s infinite;
     }
+
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.2); }
       100% { transform: scale(1); }
     }
+
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div id="screen">ACCESS DENIED</div>
+
+  <div id="screen"></div>
+
+  <audio autoplay loop>
+    <source src="https://files.catbox.moe/p2t2ei.mp3" type="audio/mpeg" />
+    Your browser does not support background music.
+  </audio>
 
   <script>
     const screen = document.getElementById('screen');
+    const messages = [
+      "ACCESS DENIED",
+      "OVERRIDE CODE ACCEPTED...",
+      "💗 INITIATING BIRTHDAY PROTOCOL 💗",
+      "Happy Birthday, SAMIKSHA!",
+      "You’ve hacked into my heart 💘",
+      "❤️❤️❤️"
+    ];
 
-    setTimeout(() => {
-      screen.textContent = 'OVERRIDE CODE ACCEPTED...';
-    }, 2000);
+    let index = 0;
+    let charIndex = 0;
 
-    setTimeout(() => {
-      screen.innerHTML = `
-        <div>💗 INITIATING BIRTHDAY PROTOCOL 💗</div>
-        <div class="message">Happy Birthday, <strong>SAMIKSHA</strong>!<br>You’ve hacked into my heart 💘</div>
-        <div class="heart">❤️❤️❤️</div>
-      `;
-      document.body.style.backgroundColor = '#111';
-      document.body.style.color = '#fff';
-    }, 4000);
+    function typeMessage() {
+      if (index < messages.length) {
+        const current = messages[index];
+        if (charIndex < current.length) {
+          screen.textContent += current.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeMessage, 50);
+        } else {
+          screen.innerHTML += "<br><br>";
+          index++;
+          charIndex = 0;
+          setTimeout(typeMessage, 800);
+        }
+      } else {
+        screen.innerHTML += `
+          <div class="message glitch">Happy Birthday, <strong>SAMIKSHA</strong>!<br>You’ve hacked into my heart 💘</div>
+          <div class="heart">❤️❤️❤️</div>
+        `;
+        document.body.style.backgroundColor = '#111';
+        document.body.style.color = '#fff';
+      }
+    }
+
+    typeMessage();
   </script>
+
 </body>
 </html>
